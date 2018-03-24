@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.nagarro.authenticationgui.web")
+@ComponentScan("com.nagarro.authenticationgui.web.*")
 public class SpringBootFirstWebApplication {
 	
 	public static void main(String[] args) {
