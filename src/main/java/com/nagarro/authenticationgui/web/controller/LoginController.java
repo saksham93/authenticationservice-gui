@@ -41,7 +41,7 @@ public class LoginController {
 		Map<String, String> vars = new HashMap<>();
 		vars.put("uid", name);
 		vars.put("password", password);
-		String url = "http://" + instanceInfo.getIPAddr() + ":" + instanceInfo.getPort() + "/";
+		String url = "http://" + instanceInfo.getIPAddr() + ":" + instanceInfo.getPort() + "/authenticate/";
 		System.out.println("URL" + url);
 		Boolean isPresent = restTemplate.postForObject(url + "{uid}/{password}", "", Boolean.class, vars);
 		if (isPresent) {
