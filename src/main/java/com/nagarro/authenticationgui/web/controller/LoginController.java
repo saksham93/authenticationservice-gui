@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,12 +28,12 @@ public class LoginController {
 	@Value("${service.user.authentication}")
 	private String userAuthenticationServiceId;
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@GetMapping(value = "/login")
 	public String showLoginPage(ModelMap model) {
 		return "login";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@PostMapping(value="/login")
 	public String showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password) {
 		Application application = eurekaClient.getApplication(userAuthenticationServiceId);
 		InstanceInfo instanceInfo = application.getInstances().get(0);
