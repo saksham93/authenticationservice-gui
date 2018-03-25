@@ -38,12 +38,13 @@ public class LoginController {
 	public String showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password) {
 		Application application = eurekaClient.getApplication(userAuthenticationServiceId);
 		InstanceInfo instanceInfo = application.getInstances().get(0);
+		User user = new User();
+		user.setName(name);
+		user.setPassword(password);
 		Map<String, String> vars = new HashMap<>();
-		vars.put("uid", name);
-		vars.put("password", password);
 		String url = "http://" + instanceInfo.getIPAddr() + ":" + instanceInfo.getPort() + "/authenticate/";
 		System.out.println("URL" + url);
-		Boolean isPresent = restTemplate.postForObject(url + "{uid}/{password}", "", Boolean.class, vars);
+		Boolean isPresent = restTemplate.postForObject(url, user, Boolean.class, vars);
 		if (isPresent) {
 			model.put("name", "Authenticated");
 		} else {
