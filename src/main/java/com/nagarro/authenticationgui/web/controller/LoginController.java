@@ -29,6 +29,9 @@ public class LoginController {
 	@Value("${service.user.authentication}")
 	private String userAuthenticationServiceId;
 
+	@Value("${WEB_AUTHENTICATION_SERVICE_ID}")
+	private String webServiceId;
+
 	@GetMapping(value = "/login")
 	public String showLoginPage(ModelMap model) {
 		return "login";
@@ -42,7 +45,7 @@ public class LoginController {
 		user.setName(name);
 		user.setPassword(password);
 		Map<String, String> vars = new HashMap<>();
-		String url = "http://" + instanceInfo.getIPAddr() + ":" + instanceInfo.getPort() + "/authenticate/";
+		String url = "http://" + webServiceId + ":" + instanceInfo.getPort() + "/authenticate/";
 		System.out.println("URL" + url);
 		Boolean isPresent = restTemplate.postForObject(url, user, Boolean.class, vars);
 		if (isPresent) {
